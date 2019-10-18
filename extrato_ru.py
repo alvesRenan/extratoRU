@@ -9,7 +9,13 @@ data = {
     "matriculaAtreladaCartao": sys.argv[2]
     }
 
-r = requests.post(url, data=data)
+try:
+    r = requests.post(url, data=data)
+except requests.exceptions.ConnectionError:
+    print("Connection Error. Try again latter.")
+    sys.exit(1)
+
+
 html_response = r.text.split(">")
 
 usuario, _ = html_response[97].split('<')
